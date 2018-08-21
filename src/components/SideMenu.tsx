@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import * as React from 'react';
 
 // import * as SideMenuItems from '../widgets/static-data';
-import SideMenuItems from '../widgets/static-data';
+import SideMenuItems from './SideMenuItems';
 
 import {Page} from '../widgets/common';
 

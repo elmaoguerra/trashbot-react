@@ -4,7 +4,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChatIcon from '@material-ui/icons/Chat';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import * as React from 'react';
-import {Page} from './common';
+import {Page} from '../widgets/common';
 
 interface ISideMenuItems{
     handlePage: (page: Page) => () => void
