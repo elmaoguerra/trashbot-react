@@ -9,6 +9,16 @@ interface IMessage{
     isTrash: boolean
 }
 
+export interface ILoginProps {
+    classes: any;
+    login: (usuario: ILoginState) => void
+}
+
+export interface ILoginState{
+    email: string,
+    password: string,
+}
+
 export class Message {
     public cssClass: string;
     public content: string;

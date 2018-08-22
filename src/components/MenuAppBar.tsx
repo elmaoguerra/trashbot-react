@@ -13,7 +13,8 @@ import Home from './Home';
 import Login from './Login';
 import SideMenu from './SideMenu';
 
-import {Page} from '../widgets/common';
+import {API} from '../service/backend';
+import {ILoginState, Page} from '../widgets/common';
 
 const styles = {
     container:{
@@ -45,11 +46,17 @@ class MenuAppBar extends React.Component<Props> {
         openSideMenu: false,
   };
 
-  public login = (usuario) => {
-    // tslint:disable-next-line:no-console
-    if(usuario.email === 'a@a.c') {
-        this.setState({ auth: true });
-     }
+  public login = (usuario: ILoginState) => {
+        
+    API.login(usuario).then(resp=>{
+      localStorage.setItem('token', resp.access_token);
+      this.setState({ auth: true });
+    }).catch(e=>{
+      // tslint:disable-next-line:no-console
+      console.log(e);
+      
+    });
+    
 }
 
   public render() {

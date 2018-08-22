@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {Page} from '../widgets/common';
 import Chat from './Chat';
+import Eventos from './Eventos';
 
 interface IHomeProps{
     page : Page
@@ -12,7 +13,7 @@ class Home extends React.Component<IHomeProps> {
         return (
             (this.props.page === Page.Eventos)?
             (
-                <div>Eventos</div>
+                <Eventos/>
             )
             :(this.props.page === Page.Chat) &&(
                 <Chat/>

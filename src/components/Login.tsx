@@ -7,17 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import * as React from 'react';
 
-// tslint:disable-next-line:interface-over-type-literal
-type Props = {
-    classes: any;
-    login: (usuario: any) => void
-}
+import {ILoginProps, ILoginState} from '../widgets/common';
 
 // tslint:disable-next-line:interface-name
-export interface State{
-    email: string,
-    password: string,
-}
+
 
 const styles = {
     bullet: {
@@ -38,10 +31,10 @@ const styles = {
     },
   };
 
-class Login extends React.Component<Props, State> {
+class Login extends React.Component<ILoginProps, ILoginState> {
     constructor(props){
         super(props);
-        this.state = { email: 'a@a.c', password: ''};
+        this.state = { email: 'test@example.com', password: 'test'};
     }
 
     public render() {
@@ -104,7 +97,7 @@ class Login extends React.Component<Props, State> {
     private handleChange = event => {
         this.setState({
           [event.target.id]: event.target.value
-        } as State);
+        } as ILoginState);
       }
 }
 

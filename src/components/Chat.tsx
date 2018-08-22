@@ -8,9 +8,7 @@ import List from '@material-ui/core/List';
 import TextField from '@material-ui/core/TextField';
 import ChatIcon from '@material-ui/icons/Chat';
 
-// interface IChatState{
-//     message : string
-// }
+import {API} from '../service/backend';
 
 
 class Chat extends React.Component{
@@ -27,12 +25,9 @@ class Chat extends React.Component{
         super(props);
         
         this.state.messages = [
-            new Message({content: 'Hola Mundo', self: false, cssClass: '', isTrash: false}),
-            new Message({content: '', self: false, cssClass: 'p_blanca',  isTrash: true}),
+            // new Message({content: 'Hola Mundo', self: false, cssClass: '', isTrash: false}),
+            // new Message({content: '', self: false, cssClass: 'p_blanca',  isTrash: true}),
         ]
-
-        localStorage.setItem('token', 
-        'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyLCJleHAiOjE1MzQ4MzA3Nzl9.LwZF_x0mMBArtzs2HhE9UspoVB2qU-GuDs8tALgVF-g');
     }
 
     public render(){
@@ -98,6 +93,13 @@ class Chat extends React.Component{
             .then((texts:string[]) =>{
                 texts.forEach(item=>{
                     const resp = new Message({content: item, self: false, cssClass: '', isTrash: false});
+
+                    if(item.match(/^p_.*jpg$/)){
+                        resp.isTrash = true;
+                        resp.cssClass = item.replace(/(.*).jpg/, "$1");
+                        resp.content = '';
+                    }
+
                     messages.push(resp);
                 });
                 this.updateMessages(messages);
@@ -119,26 +121,7 @@ class Chat extends React.Component{
 
     private askToTrashBot(text : string){
 
-        const msj : any = {"mensaje" : {
-            "input": {
-              "text": text
-        }}};
-
-        const reqHeaders = {
-            "Authorization": localStorage.getItem('token') || '',
-            "Content-Type": "application/json; charset=utf-8",
-        }
-
-        
-
-        return fetch('https://trashbot-api.herokuapp.com/api/v1/chats', {
-            body: JSON.stringify(msj), 
-            headers: reqHeaders,
-            method: "POST",
-        }).then(response => response.json());
-        
-
-        // return messages;
+        return API.sendMessage(text);
     }
 
 }
